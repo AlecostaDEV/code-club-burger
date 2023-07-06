@@ -104,6 +104,46 @@ PASSO A PASSO projeto full-stack (use CODE CLUB BURGER como exemplar)
     "singleQuote": true
     }
 
-- dentro da pasta src, crio as pastas:
-    controllers
-    models
+- dentro da pasta src, crio a pasta app e dentro de app, crio as pastas controllers e models
+
+- dentro da pasta src, crio a pasta config, dentro de config, crio o arquivo "database.js"
+
+- dentro da pasta src, crio a pasta database, dentro de database crio o arquivo "index.js"
+    também dentro da pasta database, crio outra pasta "migrations"
+
+- instalo o docker, e quando estiver rodando normal dou continuidade.
+
+- no terminal do vs, dou o comando:
+docker run --name codeburguer-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+
+onde:   --name (nome do projeto)
+        -e POSTRES_PASSWORD=(senha desejada)
+        -p 5432:5432 porta do pc (escolher) : porta postgres (padrão)
+
+- dou um "docker ps" no terminal para mostrar as imagens que estão de pé
+
+- caso tenha reiciado ou derrubado o docker, para deixar o container de pé novamente pode ser tanto pelo programa do docker, ou pelo terminal do vs.
+    no terminal, digita: docker start (nome do container)
+        ex: docker start codeburguer-postgres
+
+- baixo o Postbird, que é uma interface gráfica do banco de dados
+
+- entro no postbird e logo os dados, no caso dessa aplicação foi:
+    Host: localhost
+    Port: 5432
+    Username: postgres
+    Password: postgres
+    >connect
+
+- crio uma database (create database, nomeia (nesse caso foi codeburger) e cria)
+
+- instalo o sequelize, no terminal "yarn add sequelize"
+
+- instalo a biblioteca como dependencia no terminal "yarn add sequelize-cli -D"
+
+- instalo no terminal: "yarn add pg pg-hstore"
+
+- na pasta raiz, crio o arquivo ".sequelizerc"
+    crio o conteúdo da pasta (vide arquivo)
+
+- crio o conteúdo do database.js dentro da pasta config em src
