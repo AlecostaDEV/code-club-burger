@@ -90,8 +90,7 @@ PASSO A PASSO projeto full-stack (use CODE CLUB BURGER como exemplar)
 
     rules: {
     camelcase: 'off',
-    endOfLine: 'auto',
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
 
     salvo.
@@ -147,3 +146,29 @@ onde:   --name (nome do projeto)
     crio o conteúdo da pasta (vide arquivo)
 
 - crio o conteúdo do database.js dentro da pasta config em src
+
+- no terminal: "yarn sequelize migration:create --name=create-users"
+    que é para criar a migration create-users, usando a biblioteca do sequelize-cli
+    modifico o conteúdo dela (vide arquivo que foi criado dentro da pasta migration)
+
+- no terminal, rodo:
+    yarn sequelize db:migrate
+    >só vai funcionar se o container do docker estiver rodando
+
+- no postbird, atualizo as tabelas e vejo se chegou o conteúdo migrado
+
+- crio o arquivo User.js dentro da pasta models, que está dentro da pasta app
+    o arquivo é criado com letra maiúscula porque é uma classe
+
+- crio o conteúdo desse arquivo (vide User.js)
+
+- no arquivo "index.js" na pasta "migrations" crio a conexão do model com o banco de dados
+
+- instalo uuid
+    yarn add uuid
+
+- crio o arquivo "UserController.js" na pasta controllers
+    crio o conteúdo do arquivo
+
+- crio a requisição New User no insomnia
+    o insomnia será usado para simular o front-end, até que ele fique pronto

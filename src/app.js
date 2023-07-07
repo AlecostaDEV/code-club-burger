@@ -1,11 +1,12 @@
 import express from 'express'
 import routes from './routes'
 
+import './database'
 class App {
   constructor() {
     this.app = express()
 
-    this.middleware()
+    this.middlewares()
     this.routes()
   }
 

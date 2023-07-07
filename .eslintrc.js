@@ -22,7 +22,6 @@ module.exports = {
   },
   rules: {
     camelcase: 'off',
-    endOfLine: 'auto',
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
 }
