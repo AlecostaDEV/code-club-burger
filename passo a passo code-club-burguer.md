@@ -170,5 +170,71 @@ onde:   --name (nome do projeto)
 - crio o arquivo "UserController.js" na pasta controllers
     crio o conteúdo do arquivo
 
-- crio a requisição New User no insomnia
+- crio a requisição New User no insomnia e testo criando um novo usuário
+    ![exemplo](<print insomnia_codeburger-1.jpg>)
     o insomnia será usado para simular o front-end, até que ele fique pronto
+
+- instalo a biblioteca Yup, que será usada para fazer a verificicação dos dados
+    yarn add yup
+
+- instalo a biblioteca bcrypt, que será usada para criptografar as senhas
+    yarn add bcrypt
+
+- importo e uso a biblioteca bcrypt em User.js na pasta models
+
+- crio uma nova requisição de login no insomnia
+    Nomeio de Login, será do tipo Post e enviará os dados pelo body usando Json
+    na barra de endereço, coloco a baseUrl já salva e seguido de /sessions
+    ![ficou assim](print2_insomnia_codeburger.jpg)
+
+- crio um novo controller, que será responsável por fazer o login do usuário
+    na pasta controllers, crio o arquivo SessionController.js
+    (vide códigos do arquivo)
+
+- crio a rota /sessions em routes
+
+- em User.js na pasta models, adiciono o código que fará a comparação da senha criptografada com a senha enviada pelo usuário. 
+
+- crio uma nova tabela (em migrations), onde serão armazenados os dados dos produtos do site. 
+    yarn sequelize migration:create --name=create-products
+*obs: no código, foi usado uma sintaxe diferente em cada migration, deixei diferente para poder ter acesso as duas formas 
+
+- rodo a migration, 
+    yarn sequelize db:migrate
+vejo no postbird se criou e prossigo
+
+- crio o arquivo ProductController.js, na pasta controllers
+    crio o conteúdo (códigos)
+
+- crio a requisição de New Product no insomnia e já aproveito para organizar as pastas. Deixando login dentro da pasta session e crio a pasta Products, para colocar a requisição New Product
+    New Product > tipo POST > JSON
+
+- crio a rota em routes.js dessa requisição
+
+- rodo a aplicação (yarn dev) e testo a rota com a requisição no insomnia
+
+- vou trocar a requisição de JSON para "multpart form", pois vou precisar enviar imagens também
+
+- instalo a biblioteca multer para auxiliar o upload de imagens, onde consiga enviar uma imagem no frontend e pegar no backend
+    yarn add multer
+
+- na pasta config, crio o arquivo multer.js 
+    configuro o código (vide arquivo)
+    
+- crio a pasta "uploads" na pasta raiz
+
+- importo o multer nas routes
+
+- testo no a requisição no insomnia que deverá enviar um arquivo e as informações dele no body (o arquivo é salvo na pasta uploads)
+    
+- crio o arquivo Product.js dentro da pasta models
+    crio o código do arquivo (vide arquivo)
+    atualizo o código de ProductController.js
+    inicializo o model (ou seja, conecto o model com a tabela do database)
+    para isso, na pasta database, acesso o arquivo index.js e carrego Product junto com a importação (vide arquivo)
+    testo enviando a requisição de products no insomnia
+    crio a url (vide arquivo Product.js)
+    crio um middleware no arquivo app.js
+    e crio a rota do tipo get que vai listar todos os produtos (em routes.js)
+    crio o método em ProductController.js
+    crio a requisição GET no insomnia e testo se esta chegando todos os produtos cadastrados na rota New Product
