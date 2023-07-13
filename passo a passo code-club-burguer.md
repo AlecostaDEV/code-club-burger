@@ -229,12 +229,36 @@ vejo no postbird se criou e prossigo
     
 - crio o arquivo Product.js dentro da pasta models
     crio o código do arquivo (vide arquivo)
-    atualizo o código de ProductController.js
+    atualizo o código de "ProductController.js"
     inicializo o model (ou seja, conecto o model com a tabela do database)
-    para isso, na pasta database, acesso o arquivo index.js e carrego Product junto com a importação (vide arquivo)
+    para isso, na pasta database, acesso o arquivo "index.js" e carrego Product junto com a importação (vide arquivo)
     testo enviando a requisição de products no insomnia
     crio a url (vide arquivo Product.js)
     crio um middleware no arquivo app.js
     e crio a rota do tipo get que vai listar todos os produtos (em routes.js)
-    crio o método em ProductController.js
+    crio o método em "ProductController.js"
     crio a requisição GET no insomnia e testo se esta chegando todos os produtos cadastrados na rota New Product
+
+- instalo a biblioteca JWT, que vai auxiliar na segurança 
+    yarn add jsonwebtoken
+    importo e uso em "SessionController.js"
+    no segundo parametro do token jwt.sign recebe uma string, mas essa string precisa ser única, pois com essa string será gerado o token. 
+    Então para aumentar a segurança, uso o MD5 hash generator (https://www.md5hashgenerator.com/)
+    e gero um hash baseado na palavra codeburger
+
+- crio o arquivo "auth.js" na pasta config para deixar o código mais clean e organizado.
+    nesse arquivo coloco o segundo e terceiro parametros, sendo o hash criado pelo MD5 e tempo de expiração 
+    e importo esse arquivo no "ProductController", onde estou usando o jwt
+
+- em "ProductControler.js" coloco um console para verificar se o token está funcionando.
+    
+    testo o token gerado pela rota Login (post), copio esse token e uso na rota All Products (get)
+    na sessão Auth, ao lado de body, escolho "Bearer token" e colo o token.
+    ![como fica no insomnia](image.png)
+    ![como fica o console e onde verifica o token no terminal (aparece após dar o send no insomnia)](image.png)
+    estando tudo ok, deleto o console.log e continuo codando
+
+- crio a pasta "middlewares" dentro da pasta "app"
+    dentro da pasta, crio o arquivo "auth.js" e configuro esse middleware que fará a verificação se o usuário me enviou o token
+    importo esse middleware nas rotas e uso
+    crio a condição de aviso caso o usuário não envie o token (no middleware arquivo auth.js)
