@@ -262,3 +262,45 @@ vejo no postbird se criou e prossigo
     dentro da pasta, crio o arquivo "auth.js" e configuro esse middleware que fará a verificação se o usuário me enviou o token
     importo esse middleware nas rotas e uso
     crio a condição de aviso caso o usuário não envie o token (no middleware arquivo auth.js)
+
+- inicio o relacionamento entre as tabelas de produtos e categoria 
+     onde um produto terá uma categoria e uma categoria terá diversos produtos
+     
+- começo criando a tabela de categorias
+    yarn sequelize migration:create --name=create-categories
+    configuro ela (vide arquivo create categories, localizado em migrations)
+    após pronto, rodo a migrate, criando a categoria no database
+        yarn sequelize db:migrate
+
+- no insomnia, crio a pasta Categories e a requisição "New Category" (post)
+    ![desse jeito](image-1.png)
+
+- agora crio o model e controller de categories
+    na pasta models, crio o arquivo Category.js (faz a interface entre a aplicação e o banco de dados, responsavel por gravar e recuperar os dados)
+    importo o Category no arquivo index.js na pasta database (vide arquivo)
+    crio o arquivo CategoryController.js na pasta controllers (onde chega os dados e enviamos pra models)
+    crio as rotas em routes.js (vide arquivo) (onde acessamos os controllers)
+
+- no insomnia, crio uma nova rota para ver as categorias
+    Show Categories, tipo GET
+    ![Desse jeito](image-2.png)
+    Lembrando que para conseguir esse request, é necessário logar e copiar o token gerado, depois cola em Auth, escolhe bearer. É necessário tanto para criar uma nova category (rota POST) quanto para Show Categories (rota GET)
+
+- crio uma migration para poder modificar tabelas, para caso eu crie algo que queira deletarno futuro.
+    yarn sequelize migration:create --name=delete-category-column
+
+    Nesse caso, eu queria deletar a coluna category, na tabela de products e substituir por category_id
+
+- acesso a migration delete-category-column e crio o código que:
+    em up: vai deletar a coluna category.
+    em down: vai recriar a coluna (para caso de algo errado)
+
+    rodo a migration no terminal
+        yarn sequelize db:migrate
+
+- crio outra migration para fazer o relacionamento entre as tabelas de category e products
+    yarn sequelize migration:create --name=create-category-column
+    crio o código e depois tudo pronto rodo a migration no terminal
+        yarn sequelize db:migrate
+
+- é muito importante que as migrations sejam criadas na ordem correta
