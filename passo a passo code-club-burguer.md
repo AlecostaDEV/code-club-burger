@@ -304,3 +304,59 @@ vejo no postbird se criou e prossigo
         yarn sequelize db:migrate
 
 - é muito importante que as migrations sejam criadas na ordem correta
+
+- em seguida, instalo o mongodb no docker, ou seja, vou subir um container contendo o mongo no docker. 
+    >atentar as duas opções abaixo
+    docker run --name mongo -p 27017:27017 -d -t mongo
+    OU
+    docker run --name mongo -p 27017:27017 -d -t mongo:4.4 (use essa opçao se o processador nao suportar AVX)
+    o container terá o nome mongo, 
+    rodando na porta 27017 do meu computador, pois ele tem por padrão essa mesma rota
+    vai rodar em segundo plano (-d)
+    e escolho a imagem do mongo (-t mongo)
+
+    já temos um container do postgres, mas usaremos o mongo também para aprendizado
+
+- para testar se está corretamente instalado, acesso no meu navegador:
+    localhost:27017
+se estiver funcionando, deverá exibir a mensagem:
+    "It looks like you are trying to access MongoDB over HTTP on the native driver port."
+
+- instalo a biblioteca mongoose, que auxiliará no lugar do sequelize, que só funciona em bancos relacionais
+    yarn add mongoose  
+
+- faço a conexão da aplicação com o mongodb (na pasta database, no arquivo index.js)
+
+- dentro da pasta "app", crio a pasta "schemas"
+    dentro da pasta "schemas" crio o arquivo "Order.js"
+    onde será montado o código dos pedidos
+
+-  no insomnia crio meu modelo de Orders
+    ![desse jeito](image-3.png) (print ainda estava sem endereço da rota)
+
+- crio o arquivo "OrderController.js" na pasta controllers
+
+- crio a rota de order em "routes.js"
+
+- trabalho os arquivos (voltar a informar melhor depois)
+
+- instalo (ou abro) o mongo Compass
+    conecto e nele já estará o codebuger que o mongo criou automáticamente quando coloquei as infos de conexão do mongo no index.js
+
+- trabalho em OrderController.js e routes.js para atualizar os status dos pedidos
+
+- crio a requisição Show All Orders no insomnia 
+    (No Body, com auth bearer, endereço baseUrl/orders)
+
+- crio outra requisição Update Order
+    tipo Put, com JSON, no endereço vai junto o ID que o mongo gera do pedido
+    configuro a rota em OrderController.js e em routes.js
+
+- inicio a validação de admin, para que somente o admin tenha acesso á certas áreas do site.
+    como criar novo produto, nova categoria, atualizar pedido...
+    para isso, mexo nos controllers onde tem necessidade de admin. Ex: OrderController, ProductController...
+
+- testo no insomnia se consigo acessar com a conta logada que não tem o admin.
+ex: criar um novo produto.
+    crio uma outra conta com acesso de admin e testo
+
