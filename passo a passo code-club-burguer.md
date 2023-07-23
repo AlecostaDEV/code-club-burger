@@ -360,3 +360,34 @@ se estiver funcionando, deverá exibir a mensagem:
 ex: criar um novo produto.
     crio uma outra conta com acesso de admin e testo
 
+- crio uma nova migration que será responsavel por adicionar uma coluna (em products) que será relacionada aos produtos em promoção
+    yarn sequelize migration:create --name=create-products-offer-column
+    depois de criado, programo a migration e depois rodo com:
+        yarn sequelize db:migrate
+        
+- atualizo Product.js para conter o offer
+  atualizo ProductController.js
+
+- crio o request update product em products no insomnia
+    tipo PUT ![fica assim](image-4.png)
+    lembrando que essa rota poderá trocar qualquer informação do produto, nesse caso, usamos para trocar o offer, mas poderia trocar nome, preço, foto do produto.. etc
+
+    ![exemplo trocando foto e mais infos](image-5.png)
+
+- crio a rota put em routes.js
+
+- crio outra migration que será responsável por atualizar as categories, afinal quero colocar fotos em cada category
+    yarn sequelize migration:create --name=create-category-column
+    configuro e rodo
+        yarn sequelize db:migrate
+
+    atualizo o Category.js
+    atualizo o CategoryController.js
+    atualizo routes.js
+    atualizo app.js (onde crio uma rota para poder ver os uploads (arquivos))
+    modifico a requisição de new category (post) para multiform, para poder enviar arquivo e testo
+
+- vou criar o update de category
+    inicio atualizando o código de CategoryController.js
+    crio a rota put em routes.js
+    crio a requisição PUT no insomnia e testo
