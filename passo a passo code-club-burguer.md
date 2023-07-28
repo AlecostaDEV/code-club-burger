@@ -132,7 +132,7 @@ onde:   --name (nome do projeto)
     Port: 5432
     Username: postgres
     Password: postgres
-    >connect
+    connect
 
 - crio uma database (create database, nomeia (nesse caso foi codeburger) e cria)
 
@@ -153,7 +153,7 @@ onde:   --name (nome do projeto)
 
 - no terminal, rodo:
     yarn sequelize db:migrate
-    >só vai funcionar se o container do docker estiver rodando
+    só vai funcionar se o container do docker estiver rodando
 
 - no postbird, atualizo as tabelas e vejo se chegou o conteúdo migrado
 
@@ -391,3 +391,268 @@ ex: criar um novo produto.
     inicio atualizando o código de CategoryController.js
     crio a rota put em routes.js
     crio a requisição PUT no insomnia e testo
+
+
+> FRONT-END
+
+
+     INTRO REACT 
+
+- Começo criando o projeto react
+    no powershell, procuro ou crio a pasta onde quero criar o projeto
+    npx create-react-app code-burger-interface
+        ![assim](image-6.png) 
+        após criado, abro a pasta "cd  code-burger-interface"
+        dou "code ." e inicio
+
+- inicio deletando arquivos dentro de public
+    logo192.png
+    logo512.png
+    manifest.json
+    robots.txt
+
+- atualizo o index.html
+    ![fica assim](image-7.png)
+
+- em src deleto tudo, com exceção do index.js
+
+- crio a pasta containers dentro da pasta src
+    containers será onde ficarão todas as páginas
+
+- dentro de containers, crio a pasta Login
+
+- dentro da pasta Login, crio o arquivo index.js e o styles.js
+
+- instalo eslint + prettier no react
+    npm install eslint -D
+    ou 
+    yarn add eslint -D 
+
+- após terminado, inicia o eslint para configurar
+    npx eslint --init
+    ou
+    yarn eslint --init
+
+    1: To check syntax, find problems, and enforce code style
+    2: JavaScript modules (import/export)
+    3: React
+    4: No
+    5: Browser
+    6: Use a popular style guide
+    7: Standard
+    8: JSON
+    9: Yes
+    10: npm
+
+    após instalado, dou um ctrl + shift + P
+        > Preferences: open settings JSON
+        ![assim](image-8.png)
+        
+    e nesse JSON precisa ter essas linhas:
+    ![essas linhas marcadas](image-9.png)
+    "[javascript]" {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true
+        },
+    },
+    "[javascriptreact]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true
+        },
+    }
+
+
+- instalo a dependencia "eslint-plugin-import-helpers", que vai me ajudar com a organização das importações
+    npm install eslint-plugin-import-helpers -D
+    ou
+    yarn add eslint-plugin-import-helpers -D
+
+    adiciono as linhas no arquivo .eslintrc.json
+    ![essas linhas](image-10.png)
+    "plugins": [
+        "react",
+        "eslint-plugin-import-helpers"
+    ],
+    "rules": {
+        "import-helpers/order-imports": [
+            "warn",
+            {
+                "newlinesBetween": "always",
+                "groups": [
+                    "/^react/",
+                    "module",
+                    "/^@shared/",
+                    [
+                        "parent",
+                        "sibling",
+                        "index"
+                    ]
+                ],
+                "alphabetize": {
+                    "order": "asc",
+                    "ignoreCase": true
+                }
+            }
+        ]
+    }
+
+- instalo o plugin que auxilia na organização dos react hooks
+    npm install eslint-plugin-react-hooks -D
+    ou
+    yarn add eslint-plugin-react-hooks -D
+
+    em eslintrc.json, adiciono a linha em "extends"
+    "plugin:react-hooks/recommended"
+
+    em "plugins" adiciono:
+    "react-hooks"
+
+    em "rules", adiciono:
+    "react-hooks/rules-of-hooks": "error", 
+    "react-hooks/exhaustive-deps": "warn",
+
+    ![dessa forma](image-12.png)
+
+- instalo o prettier como dependencia de desenvolvimento
+    npm install prettier eslint-config-prettier eslint-plugin-prettier -D
+    ou
+    yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+
+    no arquivo .eslintrc.json:
+
+    em "extends", adiciono:
+    "plugin:prettier/recommended"
+
+    em "plugins", adiciono:
+    "prettier"
+
+    em "rules", adiciono:
+    "rules": {
+        "no-unused-vars": "warn",
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto",
+                "trailingComma": "none",
+                "singleQuote": true,
+                "semi": false,
+                "arrowParens": "avoid"
+            }
+        ],
+
+        com o prettier e eslint configurados, volto a trabalhar o react.
+
+        estilos globais com styled-components
+
+- instalo o styled-components
+    npm install styled-components
+    ou
+    yarn add styled-components
+
+- na pasta "src", crio a pasta "styles"
+    dentro de styles, crio o arquivo globalStyles.js
+
+
+        Estilizando a tela de Login
+
+- dentro da pasta "src", crio a pasta "assets"
+    onde coloco as imagens que vou usar no front
+    (para visualizar os arquivos svg, precisa ter instalado a extensão "preview svg")
+
+- trabalho o index.js da pag Login (vide arquivo)
+    é interessante visualizar tudo que vai precisar no site, monta e ja exporta
+
+- trabalho o styles.js da pag login (vide arquivo)
+
+
+        Formulário com React Hook Form
+
+- para criar o formulário, vou usar a biblioteca "react-hook-form"
+    https://react-hook-form.com/get-started
+
+    npm install react-hook-form
+    ou 
+    yarn add react-hook-form
+
+- nesse momento, a biblioteca será usada no arquivo "index.js" da página Login
+
+
+        Validando o formulário de Login
+
+- instalo a biblioteca que auxilia na validação
+    npm install @hookform/resolvers yup
+    ou
+    yarn add @hookform/resolvers yup
+
+- nesse momento, a biblioteca será usada no arquivo "index.js" da página Login
+    também estilizo os erros no styles.js da página Login
+
+    
+        Conectando Front end e Back end
+
+- começo rodando os containers de database no docker: postgres e mongo
+
+- abro o back-end no VS
+
+- certifico que a porta do backend não esteja rodando na porta 3000
+    em src/server.js
+    nesse caso, rodo na 3001, pois o front já está rodando na 3000
+    aproveito para trocar no insomnia também
+
+- instalo o cors para que o browser não bloqueie as requisições:
+    npm install cors
+    ou
+    yarn add cors
+
+    trabalho o cors em  app.js
+
+
+- rodo o back:
+    npm dev
+    ou 
+    yarn dev
+
+- volto ao front-end e instalo o axios
+    yarn add axios
+    ou
+    npm install axios
+
+- crio a pasta "services" dentro de src
+    dentro de services, crio o arquivo "api.js"
+    nele farei o serviço para acessar o axios
+    trabalho em index.js da pág Login também
+
+
+        Criando componente de Button | PropTypes
+
+- crio a pasta "components" dentro de src
+    dentro de components crio a pasta "Button"
+        dentro de "Button", crio os arquivos:
+            index.js e styles.js
+
+- para tratar o proptypes, temos duas opções, a mais fácil seria simplesmente adicionando uma nova regra no .eslintrc.json
+    "react/prop-types": 0,
+
+    porem, a forma mais segura é tratando diretamente no uso, afinal o proptypes serve como validação para que eu mande apenas o dado que espero. Exemplo, espero uma string, mas envio um number, assim o código quebraria, entao o proptypes trata isso.
+    Sendo assim, a forma mais correta seria:
+
+    instalo a biblioteca:
+        yarn add prop-types
+        ou 
+        npm i prop-types 
+
+    trabalho o proptypes (nesse caso, em components/Button/index.js)
+
+- o componente do botão será usado várias vezes no site, porém com algumas diferenças de margin, então nesse caso, vou definir as margins diretamente no index.js de cada página. (na parte HTML)
+    lembrando que dessa forma, toda palavra que for separada por - terá q ser substituída por camelCase
+
+
+        Criando tela de Register
+
+- copio e colo a pag Login e renomeio para Register (já vem com index e styles)
+    trabalho os arquivos index, styles, assets
+    Lembrando que para facilitar na parte "onSubmit",
+        basta verificar os controllers (backend) relacionados a pág que estou criando
+    Lembrando que não precisa enviar o admin, afinal todos os usuários sempre farão cadastro comum. A área de ADMIN será feita separadamente 
+
+    trabalho o src/index para exibir a página no browser, já que ainda não terei feito a rota
